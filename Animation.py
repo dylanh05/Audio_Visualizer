@@ -83,6 +83,16 @@ def audio_threshold(y_fft):
     return max(y_fft), min(y_fft)
 
 
+# Resets audio threshold for ftt transform each time button is pressed
+def button_click(x, y, w, h, y_fft, maxs, mins):
+    mouse = pygame.mouse.get_pos()
+    click = pygame.mouse.get_pressed()
+    if x+w > mouse[0] > x and y+h > mouse[1] > y:
+        if click[0] == 1:
+            maxs, mins = audio_threshold(y_fft)
+    return maxs, mins
+
+
 # Transforms fft values into coordinates for rectangle drawing
 def transform_fft(y_fft, maxs, mins):
     heights = []
@@ -150,7 +160,11 @@ while not done:
     screen.blit(text2, [915, 594])
 
     # Audio processing
-    heights = transform_fft(fft_decomp(stream), maxs, mins)
+    y_fft = fft_decomp(stream)
+    heights = transform_fft(y_fft, maxs, mins)
+
+    # Buttons
+    maxs, mins = button_click(860, 590, 235, 34, y_fft, maxs, mins)
 
     # Drawing code
     count = 0
@@ -159,7 +173,6 @@ while not done:
             count = 0
         draw_rects(x[i], heights[i], gradients[count])
         count += 1
-
 
     # Update screen
     pygame.display.flip()
