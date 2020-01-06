@@ -234,10 +234,11 @@ while not done:
     screen.blit(text10, [1123, 232])
     color = button_cols(1120, 230, 70, 25, strobe, color)
 
+    # Draw columns of rectangles  
     count = 0
     if color != strobe:
         for i in range(128):
-            if count >= len(color):  # Gradients can be switched with any color array
+            if count >= len(color): 
                 count = 0
             draw_rects(x[i], heights[i], color[count])
             count += 1
