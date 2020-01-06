@@ -4,3 +4,6 @@ AudioVisualizer.py:
   
 Waveform.py: 
   Visualizes audio taken in from the microphone real-time as a waveform and frequency graph.
+
+Dependencies:
+  Numpy, SciPy, PyGame, PyAudio, Matplotlib
